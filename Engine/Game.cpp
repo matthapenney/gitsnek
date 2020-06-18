@@ -78,7 +78,8 @@ void Game::UpdateModel()
                 if (isEating)
                 {
                     snek.Grow();
-                    snekMovePeriod-=1;
+                    // change from -=1 to +=1
+                    snekMovePeriod+=1;
                 }
                 snek.MoveBy(delta_loc);
                 if (isEating)
