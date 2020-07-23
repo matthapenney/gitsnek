@@ -65,10 +65,10 @@ void Game::UpdateModel()
             delta_loc = { -1,0 };
         }
 
-        snekMoveCounter++;
+        snekMoveCounter+=dt;
         if (snekMoveCounter >= snekMovePeriod)
         {
-            snekMoveCounter = 0.0f;
+            snekMoveCounter -= snekMovePeriod;
             //don't call GetNextHeadPositon() twice
             const Location nextLoc = snek.GetNextHeadPosition(delta_loc);
             if (!brd.IsInsideBoard(nextLoc) || snek.IsInTileExceptEnd(nextLoc))
@@ -81,8 +81,7 @@ void Game::UpdateModel()
                 if (isEating)
                 {
                     snek.Grow();
-                    // change from -=1 to +=1
-                    snekMovePeriod+=1.0f;
+
                 }
                 snek.MoveBy(delta_loc);
                 if (isEating)
@@ -90,6 +89,9 @@ void Game::UpdateModel()
                     goal.Respawn(rng,brd,snek);
                 }
             }
+            // increase snek speed every frame by amount that is scaled by of time that is passed
+            //snekMovePeriod -= dt * .001f;
+            snekMovePeriod = std::max(snekMovePeriod - dt * snekSpeedFactor, snekMovePeriodMin);
         }
     }
     // snekMovePeriod = std::max(snekMovePeriod - 1, snekMovePeriodMin);

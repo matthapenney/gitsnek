@@ -53,9 +53,10 @@ private:
     Snake snek;
     std::mt19937 rng;
     Goal goal;
-    static constexpr int snekMovePeriodMin = 4;
-    float snekMovePeriod = 20.0f;
+    static constexpr float snekMovePeriodMin = 0.07f;
+    float snekMovePeriod = 0.15f;
     float snekMoveCounter = 0.0f;
+	static constexpr float snekSpeedFactor = 0.005f;
     Location delta_loc = {0,1};
     bool GameIsOver = false;
     bool IsStarted = false;
