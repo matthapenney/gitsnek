@@ -43,6 +43,9 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+    //use frametimer to get delta time each frame
+    const float dt = ft.Mark();
+
     if ( IsStarted && !GameIsOver)
     {
         if (wnd.kbd.KeyIsPressed(VK_UP))
@@ -65,7 +68,7 @@ void Game::UpdateModel()
         snekMoveCounter++;
         if (snekMoveCounter >= snekMovePeriod)
         {
-            snekMoveCounter = 0;
+            snekMoveCounter = 0.0f;
             //don't call GetNextHeadPositon() twice
             const Location nextLoc = snek.GetNextHeadPosition(delta_loc);
             if (!brd.IsInsideBoard(nextLoc) || snek.IsInTileExceptEnd(nextLoc))
@@ -78,7 +81,8 @@ void Game::UpdateModel()
                 if (isEating)
                 {
                     snek.Grow();
-                    snekMovePeriod-=1;
+                    // change from -=1 to +=1
+                    snekMovePeriod+=1.0f;
                 }
                 snek.MoveBy(delta_loc);
                 if (isEating)

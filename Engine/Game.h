@@ -27,6 +27,7 @@
 #include <random>
 #include "Snake.h"
 #include "Goal.h"
+#include "FrameTimer.h"
 
 class Game
 {
@@ -47,13 +48,14 @@ private:
 	/********************************/
 	/*  User Variables              */
 	/********************************/
+	FrameTimer ft;
     Board brd;
     Snake snek;
     std::mt19937 rng;
     Goal goal;
     static constexpr int snekMovePeriodMin = 4;
-    int snekMovePeriod = 20;
-    int snekMoveCounter = 0;
+    float snekMovePeriod = 20.0f;
+    float snekMoveCounter = 0.0f;
     Location delta_loc = {0,1};
     bool GameIsOver = false;
     bool IsStarted = false;
